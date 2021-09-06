@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_my_picker/flutter_my_picker.dart';
 import 'package:flutter_my_picker/common/date.dart';
+import 'package:flutter_my_picker/flutter_my_picker.dart';
 
 class DemoPage extends StatefulWidget {
   @override
@@ -8,8 +8,8 @@ class DemoPage extends StatefulWidget {
 }
 
 class _DemoPageState extends State<DemoPage> {
-  DateTime date;
-  String dateStr;
+  DateTime date = DateTime.now();
+  String dateStr = MyDate.format('yyyy-MM-dd HH:mm:ss', DateTime.now());
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _DemoPageState extends State<DemoPage> {
           padding: EdgeInsets.only(top: 8.0),
           width: MediaQuery.of(context).size.width,
           child: Text(
-            '当前时间： ${dateStr ?? MyDate.format('yyyy-MM-dd HH:mm:ss', date)}',
+            '当前时间： $dateStr',
             textAlign: TextAlign.center,
           ),
         ),
@@ -69,7 +69,9 @@ class _DemoPageState extends State<DemoPage> {
         }),
         _Button('日期选择器', () {
           MyPicker.showDatePicker(
-            header: Center(child: Text('自定义头部'),),
+            header: Center(
+              child: Text('自定义头部'),
+            ),
             context: context,
             current: date,
             // mode: MyPickerMode.date,
