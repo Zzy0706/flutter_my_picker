@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import './common/date.dart';
 import './types/index.dart';
 
@@ -199,8 +201,9 @@ class _MyDatePickerState extends State<MyDatePicker> {
     int min = 0;
 
     if (widget.end != null) {
-      max =
-          now.year + yearIndex == widget.end!.year ? (widget.end!.month - 1) : 11;
+      max = now.year + yearIndex == widget.end!.year
+          ? (widget.end!.month - 1)
+          : 11;
     }
     if (widget.start != null) {
       min = now.year + yearIndex == widget.start!.year
@@ -298,7 +301,8 @@ class _MyDatePickerState extends State<MyDatePicker> {
           DateTime(now.year + yearIndex, monthIndex + 1, _index);
       DateTime? start = widget.start == null
           ? null
-          : DateTime(widget.start!.year, widget.start!.month, widget.start!.day);
+          : DateTime(
+              widget.start!.year, widget.start!.month, widget.start!.day);
       DateTime? end = widget.end == null
           ? null
           : DateTime(widget.end!.year, widget.end!.month, widget.end!.day);
@@ -436,7 +440,8 @@ class _MyDatePickerState extends State<MyDatePicker> {
                     selectedChangedWhenScrollEnd != null &&
                     notification is ScrollEndNotification &&
                     notification.metrics is FixedExtentMetrics) {
-                  final FixedExtentMetrics metrics = notification.metrics as FixedExtentMetrics;
+                  final FixedExtentMetrics metrics =
+                      notification.metrics as FixedExtentMetrics;
                   final int currentItemIndex = metrics.itemIndex;
                   selectedChangedWhenScrollEnd(currentItemIndex);
                 }
@@ -445,7 +450,8 @@ class _MyDatePickerState extends State<MyDatePicker> {
               child: CupertinoPicker.builder(
                   key: key,
                   backgroundColor: widget.background ?? Colors.white,
-                  scrollController: scrollController as FixedExtentScrollController?,
+                  scrollController:
+                      scrollController as FixedExtentScrollController?,
                   itemExtent: widget.itemHeight, // theme.itemHeight,
                   onSelectedItemChanged: (int index) {
                     selectedChangedWhenScrolling!(index);
@@ -480,15 +486,25 @@ class _MyDatePickerState extends State<MyDatePicker> {
     return Row(
       children: <Widget>[
         TextButton(
-          child: Text('取消', style: TextStyle(color: Color(0xFF999999)),),
+          child: Text(
+            '取消',
+            style: TextStyle(color: Color(0xFF999999)),
+          ),
           onPressed: () {
             widget.onCancel!();
             Navigator.of(context).pop();
           },
         ),
-        if (widget.title != null) Expanded(child: Center(child: widget.title,)),
+        if (widget.title != null)
+          Expanded(
+              child: Center(
+            child: widget.title,
+          )),
         TextButton(
-          child: Text('确认', style: TextStyle(color: Theme.of(context).primaryColor),),
+          child: Text(
+            '确认',
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
           onPressed: () {
             onConfirm();
           },
@@ -547,8 +563,8 @@ class _MyDatePickerState extends State<MyDatePicker> {
       // color: widget.color ?? Colors.white,
       height: widget.pickerHeight + (isShowHeader ? headerHeight : 0),
       child: Column(
-        children: <Widget?>[
-          if (isShowHeader) renderHeader(),
+        children: <Widget>[
+          if (isShowHeader && renderHeader() != null) renderHeader()!,
           renderSheet(context),
         ],
       ),
